@@ -17,7 +17,7 @@ For example:
 
 ## Run the application
 
-Using your favourite package manager:
+Run this command:
 ```
 go run main.go
 ```
