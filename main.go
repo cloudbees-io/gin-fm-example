@@ -39,7 +39,6 @@ func main() {
 	router := gin.Default()
 	router.GET("/", homePage)
 	router.GET("/demo", demo)
-	router.POST("/demo-ctx", demoCtx)
 
 	router.Run(":8080")
 }
@@ -56,8 +55,4 @@ func demo(c *gin.Context) {
 		msg = "Flag Message hidden. Enable the flag in Cloudbees Platform to see it."
 	}
 	c.IndentedJSON(http.StatusOK, gin.H{"message": msg, "fontColor": flags.FontColor.GetValue(nil), "fontSize": flags.FontSize.GetValue(nil)})
-}
-
-func demoCtx(c *gin.Context) {
-	// todo: in progress per PR comment
 }
