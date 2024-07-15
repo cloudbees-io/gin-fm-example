@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/rollout/rox-go/v5/core/client"
 	"github.com/rollout/rox-go/v5/server"
 )
 
@@ -23,7 +24,16 @@ var flags = &Flags{
 
 func initFlags() {
 	sdkKey := "<INSERT YOUR SDK KEY HERE>"
-	options := server.NewRoxOptions(server.RoxOptionsBuilder{DisableSignatureVerification: true})
+	options := server.NewRoxOptions(server.RoxOptionsBuilder{
+		DisableSignatureVerification: true,
+		NetworkConfigurationsOptions: client.NewNetworkConfigurationsOptions(client.NetworkConfigurationsBuilder{
+                        GetConfigApiEndpoint: "https://api.vpc-install-test.saas-tools.beescloud.com/device/get_configuration",
+                        GetConfigCloudEndpoint: "https://rox-conf-us-east-1-vpc-install-test-cbp-test.s3.us-east-1.amazonaws.com",
+                        SendStateApiEndpoint: "https://api.vpc-install-test.saas-tools.beescloud.com/device/update_state_store/",
+                        SendStateCloudEndpoint: "https://rox-state-us-east-1-vpc-install-test-cbp-test.s3.us-east-1.amazonaws.com",
+                        AnalyticsEndpoint: "http://127.0.0.1:8787",
+                        PushNotificationEndpoint: "https://sdk-notification-service/sse",
+                })})
 	rox := server.NewRox()
 
 	// Register the flags container with the CloudBees platform
