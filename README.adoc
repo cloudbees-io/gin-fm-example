@@ -1,0 +1,74 @@
+= Example Gin application for CloudBees feature management
+
+Use this example application to integrate with the CloudBees platform and test out feature management.
+After integrating, watch the application display change in response to any updates you make to flag values in the platform.
+
+In the example application, the ROX package is already set up, and feature flags are already coded in.
+
+== Enter your SDK key
+
+Your SDK key is a link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/feature-management/learn-about-feature-flags[unique environment identifier].
+
+To generate the SDK key:
+
+. Go to menu:Feature management[Installation].
+. Select an environment (or create a new one).
+. Select the appropriate SDK.
+. The environment-specific SDK key is displayed within the `Rox.setup` call.
+. Copy the SDK key, and then replace the example app placeholder with it.
+
+== Run the application
+
+After saving your SDK key in the example application, run the following command in the terminal:
+
+[source,bash]
+----
+go run main.go
+----
+
+Then go to `http://localhost:8080/demo` to display the running application.
+
+== Use the platform to update flag values
+
+Now that your application is running, go to your environment in *Feature management* to display the flags available in the example application:
+
+[cols="1a,1a,4a",options="header"]
+.Feature flags in the example application.
+|===
+
+| Flag name
+| Flag type
+| Description
+
+| `showMessage`
+| Boolean
+| Turns the message on or off.
+
+| `message`
+| String
+| Sets the message text.
+
+| `fontSize`
+| Number (Int for Python)
+| Sets the font size in pixels.
+The flag value has the following variations: `12`, `16`, or `24`.
+
+| `fontColor`
+| String
+| Sets the font color. The flag value has the following variations: `red`, `green`, or `blue`.
+
+|===
+
+NOTE: If no flags are displayed, check that the environment-specific SDK key is correctly added to the example application.
+
+To update flags in the platform UI:
+
+. Select *Feature management* from the left pane.
+. Select the vertical ellipsis icon next to the flag you want to configure.
+. Select *Configure*.
+. Select the *Environment* you used for copying the SDK key.
+. Update a flag value and save your changes.
+. Switch the *Configuration status* to *On*.
+
+The updated flag value is soon reflected in the display of the application.
+For more information on setting flag values, refer to the https://docs.cloudbees.com/docs/cloudbees-platform/latest/feature-management/configure-feature-flags[flag configuration documentation].
