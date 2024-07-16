@@ -11,7 +11,7 @@ Your SDK key is a link:https://docs.cloudbees.com/docs/cloudbees-platform/latest
 
 To generate the SDK key:
 
-. Go to menu:Feature management[Installation].
+. Go to menu:Feature management[Installation] in the platform UI.
 . Select an environment (or create a new one).
 . Select the appropriate SDK.
 . The environment-specific SDK key is displayed within the `Rox.setup` call.
