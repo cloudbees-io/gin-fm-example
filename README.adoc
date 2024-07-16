@@ -64,11 +64,14 @@ NOTE: If no flags are displayed, check that the environment-specific SDK key is 
 To update flags in the platform UI:
 
 . Select *Feature management* from the left pane.
-. Select the vertical ellipsis icon next to the flag you want to configure.
+. Select the image::https://docs.cloudbees.com/docs/cloudbees-platform/latest/_images/icon-vertical-ellipsis.png[Vertical ellipsis, title="More items"] next to the flag you want to configure.
 . Select *Configure*.
 . Select the *Environment* you used for copying the SDK key.
 . Update a flag value and save your changes.
 . Switch the *Configuration status* to *On*.
+
+.Updating a number flag value with configuration status on.
+image::https://docs.cloudbees.com/docs/cloudbees-platform/latest/example-apps/_images/gin-fontsize-update.png[Update number flag,role="screenshot"]
 
 The updated flag value is soon reflected in the display of the application.
 For more information on setting flag values, refer to the https://docs.cloudbees.com/docs/cloudbees-platform/latest/feature-management/configure-feature-flags[flag configuration documentation].
