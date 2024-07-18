@@ -5,21 +5,48 @@ After integrating, watch the application display change in response to any updat
 
 In the example application, the ROX package is already set up, and feature flags are already coded in.
 
-== Enter your SDK key
+[#add-key]
+== Integrate the example application with the platform
 
 Your SDK key is a link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/feature-management/learn-about-feature-flags[unique environment identifier].
+The SDK key is displayed in the SDK installation instructions in the platform UI.
+To successfully install the SDK, you must copy the SDK key for that environment into your application at the Rox setup call, save the file, and run the application.
 
-To generate the SDK key:
+To save your SDK key in the example application:
 
-. Go to menu:Feature management[Installation] in the platform UI.
+. Go to *Feature management* > *Installation* in the platform UI.
 . Select an environment (or create a new one).
 . Select the appropriate SDK.
-. The environment-specific SDK key is displayed within the `Rox.setup` call.
-. Copy the SDK key, and then replace the example app placeholder with it.
+. Copy the environment-specific SDK key located within the `Rox.setup` call.
+Refer to the table below for the location of the SDK key placeholder in your chosen example app.
++
+[cols="2a,2a,1a,4a",options="header"]
+.Location of SDK key placeholder in Gin example app
+|===
+| Example app repository
+| File path
+| Line number
+| Line
 
+| link:https://github.com/cloudbees-io/gin-fm-example[gin-fm-example]
+| main.go
+| 25
+| `sdkKey := "<YOUR-SDK-KEY>"`
+
+|===
++
+. Replace the example app placeholder (`<YOUR-SDK-KEY>`) with your copied key.
+. Save the file in the repository.
+
+The SDK key is generated for your environment, and copied into the example application.
+To learn more, refer to the SDK installation instructions in the platform UI or in link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/install-sdk/[the documentation].
+
+[#run]
 == Run the application
 
-After saving your SDK key in the example application, run the following command in the terminal:
+After saving your SDK key in the example application, run the example application.
+
+Run the following command in the terminal:
 
 [source,bash]
 ----
@@ -27,6 +54,8 @@ go run main.go
 ----
 
 Then go to `http://localhost:8080/demo` to display the running application.
+
+TIP: After you have the example application running, select *TEST INTEGRATION* in Step 5 of the SDK installation in the platform UI to check if your integration is successful.
 
 == Use the platform to update flag values
 
@@ -49,7 +78,7 @@ Now that your application is running, go to your environment in *Feature managem
 | Sets the message text.
 
 | `fontSize`
-| Number (Int for Python)
+| Number
 | Sets the font size in pixels.
 The flag value has the following variations: `12`, `16`, or `24`.
 
@@ -59,7 +88,7 @@ The flag value has the following variations: `12`, `16`, or `24`.
 
 |===
 
-NOTE: If no flags are displayed, check that the environment-specific SDK key is correctly added to the example application.
+NOTE: If no flags are displayed, check that the environment-specific SDK key is <<add-key,correctly added to the example application>>.
 
 To update flags in the platform UI:
 
@@ -71,4 +100,4 @@ To update flags in the platform UI:
 . Switch the *Configuration status* to *On*.
 
 The updated flag value is soon reflected in the display of the application.
-For more information on setting flag values, refer to the https://docs.cloudbees.com/docs/cloudbees-platform/latest/feature-management/configure-feature-flags[flag configuration documentation].
+For more information on setting flag values, refer to the link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/feature-management/configure-feature-flags[flag configuration documentation].
