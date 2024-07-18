@@ -21,7 +21,7 @@ To save your SDK key in the example application:
 Refer to the table below for the location of the SDK key placeholder in your chosen example app.
 +
 [cols="2a,2a,1a,4a",options="header"]
-.Location of SDK key placeholder in Gin example app
+.Location of SDK key placeholder in the Gin example app
 |===
 | Example app repository
 | File path
