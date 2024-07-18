@@ -22,7 +22,7 @@ var flags = &Flags{
 }
 
 func initFlags() {
-	sdkKey := "<INSERT YOUR SDK KEY HERE>"
+	sdkKey := "<YOUR-SDK-KEY>"
 	options := server.NewRoxOptions(server.RoxOptionsBuilder{DisableSignatureVerification: true})
 	rox := server.NewRox()
 
@@ -44,7 +44,7 @@ func main() {
 }
 
 func homePage(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, gin.H{"message": "Hello, You Created a Web App!"})
+	c.IndentedJSON(http.StatusOK, gin.H{"message": "Hello, You created a web app!"})
 }
 
 func demo(c *gin.Context) {
@@ -52,7 +52,7 @@ func demo(c *gin.Context) {
 	if flags.ShowMessage.IsEnabled(nil) {
 		msg = flags.Message.GetValue(nil)
 	} else {
-		msg = "Flag Message hidden. Enable the flag in Cloudbees Platform to see it."
+		msg = "Flag message hidden. Enable the flag in the Cloudbees platform to display it."
 	}
 	c.IndentedJSON(http.StatusOK, gin.H{"message": msg, "fontColor": flags.FontColor.GetValue(nil), "fontSize": flags.FontSize.GetValue(nil)})
 }
