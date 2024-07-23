@@ -28,11 +28,11 @@ func initFlags() {
 		DisableSignatureVerification: true,
 		NetworkConfigurationsOptions: client.NewNetworkConfigurationsOptions(client.NetworkConfigurationsBuilder{
                         GetConfigApiEndpoint: "https://api.vpc-install-test.saas-tools.beescloud.com/device/get_configuration",
-                        GetConfigCloudEndpoint: "https://rox-conf-us-east-1-vpc-install-test-cbp-test.s3.us-east-1.amazonaws.com",
+                        GetConfigCloudEndpoint: "https://rox-conf.vpc-install-test.saas-tools.beescloud.com",
                         SendStateApiEndpoint: "https://api.vpc-install-test.saas-tools.beescloud.com/device/update_state_store/",
-                        SendStateCloudEndpoint: "https://rox-state-us-east-1-vpc-install-test-cbp-test.s3.us-east-1.amazonaws.com",
+                        SendStateCloudEndpoint: "https://rox-state.vpc-install-test.saas-tools.beescloud.com",
                         AnalyticsEndpoint: "http://127.0.0.1:8787",
-                        PushNotificationEndpoint: "https://sdk-notification-service/sse",
+                        PushNotificationEndpoint: "https://sdk-notification-service.vpc-install-test.saas-tools.beescloud.com/sse",
                 })})
 	rox := server.NewRox()
 
