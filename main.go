@@ -31,7 +31,7 @@ func initFlags() {
                         GetConfigCloudEndpoint: "https://rox-conf.vpc-install-test.saas-tools.beescloud.com",
                         SendStateApiEndpoint: "https://api.vpc-install-test.saas-tools.beescloud.com/device/update_state_store/",
                         SendStateCloudEndpoint: "https://rox-state.vpc-install-test.saas-tools.beescloud.com",
-                        AnalyticsEndpoint: "http://127.0.0.1:8787",
+                        AnalyticsEndpoint: "https://fm-analytics.vpc-install-test.saas-tools.beescloud.com",
                         PushNotificationEndpoint: "https://sdk-notification-service.vpc-install-test.saas-tools.beescloud.com/sse",
                 })})
 	rox := server.NewRox()
