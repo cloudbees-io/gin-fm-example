@@ -3,6 +3,10 @@
 This application demonstrates how you can integrate CloudBees Feature Management with your Gin application.
 The application shows how your Gin application can respond live to changes in feature flag settings - when you update flag values in the CloudBees platform the display will update within moments.
 
+## VPC Installations
+
+If you are using Feature Management in a CloudBees-managed VPC environment, you must configure additional settings. There are six endpoints that must be updated in the main.go file under options := server.NewRoxOptions(server.RoxOptionsBuilder{ Your SDK configurations must point to the specific endpoints provided by your CloudBees SRE.
+
 ## Insert your SDK Key
 
 Every application using CloudBees Feature Management needs to be configured with an SDK Key that connects it to your Flags & configurations in the [CloudBees Platform](https://cloudbees.io/).
