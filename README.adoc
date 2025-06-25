@@ -155,6 +155,9 @@ Next you will modify a flag configuration and observe the change in the browser.
 | Terminal shows `404` errors
 | Ensure the SDK key is valid and internet connection is stable.
 
+| Changes to a flag is not showing in the browser.
+| Make sure the flag's configuration status is set to *On*.
+
 | Cannot edit files in VS Code
 | Confirm file permissions are not set to read-only.
 |===
