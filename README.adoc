@@ -1,103 +1,166 @@
 = Example Gin application for CloudBees platform feature management
 
-Use this example application to integrate with the CloudBees platform and test out feature management.
-After integrating, watch the application display change in response to any updates you make to flag values in the platform.
+Use this guide to connect the `gin-fm-example` Go application to your CloudBees Feature Management environment. Once connected, you can test and visualize feature flag changes at http://localhost:8080/demo.
 
-In the example application, the ROX package is already set up, and feature flags are already coded in.
+== Prerequisites
 
-[#add-key]
-== Integrate the example application with the platform
+Be sure to have these requirements ready:
 
-Your SDK key is a link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/feature-management/learn-about-feature-flags[unique environment identifier].
-The SDK key is displayed in the SDK installation instructions in the platform UI.
-To successfully install the SDK, you must copy the SDK key for that environment into your application at the Rox setup call, save the file, and run the application.
+* A CloudBees SaaS platform account: https://cloudbees.io
+* An existing or new Feature Management environment
+* Go installed on your local machine
+** Recommended: Go 1.20+ for macOS ARM64 (Apple M1/Pro)
 
-To save your SDK key in the example application:
+== Clone the example repository
 
-. Go to *Feature management* > *Installation* in the platform UI.
-. Select an environment (or create a new one).
-. Select the appropriate SDK.
-. Copy the environment-specific SDK key located within the `Rox.setup` call.
-Refer to the table below for the location of the SDK key placeholder in your chosen example app.
+[source,bash]
+----
+git clone https://github.com/cloudbees-io/gin-fm-example.git
+cd gin-fm-example
+----
+
+== Open the app in your editor
+
+Open the cloned repository in the `gin-fm-example` folder. If you're using VS Code and the `code` command is installed, use the following in the terminal:
+
+[source,bash]
+----
+code .
+----
+
+Or open `main.go` in your preferred editor manually.
+
+== Copy the SDK key
+
+. In the CloudBees platform UI, navigate to *Feature management*.
+
+. Retrieve the SDK key
+.. Select *Installation instructions* in the upper right corner.
+.. Follow the guided steps to:
+*** Create or select an environment (for example, `goEnvTest`).
+*** Create or select an application (for example, `goAppTest`).
+*** Link the application to the environment.
+.. Select *Go* as the SDK language. (This step generates a unique SDK key.)
+.. In the code block, on the right side of the screen, copy the newly generated SDK key.
+
+NOTE: You will come back to the Installation instructions page once the key is successfully saved and run in the `main.go` file in the Go app.
+
+== Replace the SDK key in `main.go`
+
+Back in your editor, open the `main.go` file.
+
+. In the `main.go` file, find the `sdkKey := "<YOUR-SDK-KEY>"` line and paste in the newly generated SDK key, replacing the placeholder value:
 +
-[cols="2a,2a,1a,4a",options="header"]
-.Location of SDK key placeholder in the Gin example app
-|===
-| Example app repository
-| File path
-| Line number
-| Line
+[source,go]
+----
+sdkKey := "your-sdk-key-here"
+----
 
-| link:https://github.com/cloudbees-io/gin-fm-example[gin-fm-example]
-| main.go
-| 25
-| `sdkKey := "<YOUR-SDK-KEY>"`
+. Check the `main.go` file to ensure the following lines are included:
 
-|===
-+
-. Replace the example app placeholder (`<YOUR-SDK-KEY>`) with your copied key.
-. Save the file in the repository.
+.Ensure the fmt package is imported at the top of the file:
+[source,go]
+----
+import "fmt"
+----
 
-The SDK key is generated for your environment, and copied into the example application.
-To learn more, refer to the SDK installation instructions in the platform UI or in link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/install-sdk/[the documentation].
+.Also ensure the following lines inside the same initFlags() function to confirm successful flag registration:
+[source,go]
+----
+fmt.Println("ROX SDK setup complete. Forcing flag registration:")
+fmt.Println("showMessage:", flags.ShowMessage.IsEnabled(nil))
+fmt.Println("message:", flags.Message.GetValue(nil))
+fmt.Println("fontColor:", flags.FontColor.GetValue(nil))
+fmt.Println("fontSize:", flags.FontSize.GetValue(nil))
 
-[#run]
-== Run the application
+----
 
-After saving your SDK key in the example application, run the example application.
+== Install the Go SDK
 
-Run the following command in the terminal:
+In the terminal, inside the `gin-fm-example` folder run the following:
+
+[source,bash]
+----
+go get -u github.com/rollout/rox-go/v5/...
+----
+
+==  Run the application
+
+In the terminal, run the following command:
 
 [source,bash]
 ----
 go run main.go
 ----
 
-Then go to `http://localhost:8080/demo` to display the running application.
+You should see:
 
-TIP: After you have the example application running, select *TEST INTEGRATION* in Step 5 of the SDK installation in the platform UI to check if your integration is successful.
+[source,text]
+----
+Listening and serving HTTP on :8080
+----
 
-== Use the platform to update flag values
+== Open the app in your browser
 
-Now that your application is running, go to your environment in *Feature management* to display the flags available in the example application:
+Copy the following and paste it into a browser window:
 
-[cols="1a,1a,4a",options="header"]
-.Feature flags in the example application.
+    http://localhost:8080/demo
+
+You’ll see JSON output with flag-controlled values similar to:
+
+[source,text]
+----
+{
+    "fontColor": "Green",
+    "fongSize": 12,
+    "message": "Hello summer!"
+}
+----
+
+== Confirm SDK connection in the UI
+
+Back in the CloudBees platform:
+
+. Return to the *Feature management > Installation instructions* page.
+. Select *Test integration* at the bottom of the instructions page.
+. You should see a success message indicating the SDK is connected.
+
+== Modify and test flags
+
+Next you will modify a flag configuration and observe the change in the browser.
+
+. On the *Feature management > Flags* page.
+. Choose your application (for example, goAppTest).
+. Select the `ShowMessage` flag  and set it to *true*.
+. Modify optional flags:
+** `message` (custom string such as "Hello summer")
+** `fontColor` (red, green, blue)
+** `fontSize` (12, 16, 24)
+. Select *Save configuration*.
+. Set *Configuration status* to *On*.
+. Refresh `http://localhost:8080/demo` to see your changes reflected.
+
+== Troubleshooting
+
+[cols="1,3",options="header"]
+|===
+| Symptom | Fix
+
+| No flags appear
+| Ensure the correct SDK key is added and saved in `main.go`.
+
+| "No SDK connection detected"
+| Refresh `/demo` and re-test integration in the UI.
+
+| Terminal shows `404` errors
+| Ensure the SDK key is valid and internet connection is stable.
+
+| Cannot edit files in VS Code
+| Confirm file permissions are not set to read-only.
 |===
 
-| Flag name
-| Flag type
-| Description
+== Related resources
 
-| `showMessage`
-| Boolean
-| Turns the message on or off.
+* xref:platform/feature-management/sdk-installation.adoc[Go SDK installation instructions]
+* GitHub repo: https://github.com/cloudbees-io/gin-fm-example
 
-| `message`
-| String
-| Sets the message text.
-
-| `fontSize`
-| Number
-| Sets the font size in pixels.
-The flag value has the following variations: `12`, `16`, or `24`.
-
-| `fontColor`
-| String
-| Sets the font color. The flag value has the following variations: `red`, `green`, or `blue`.
-
-|===
-
-NOTE: If no flags are displayed, check that the environment-specific SDK key is <<add-key,correctly added to the example application>>.
-
-To update flags in the platform UI:
-
-. Select *Feature management* from the left pane.
-. Select the vertical ellipsis icon next to the flag you want to configure.
-. Select *Configure*.
-. Select the *Environment* you used for copying the SDK key.
-. Update a flag value and save your changes.
-. Switch the *Configuration status* to *On*.
-
-The updated flag value is soon reflected in the display of the application.
-For more information on setting flag values, refer to the link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/feature-management/configure-feature-flags[flag configuration documentation].
