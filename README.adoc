@@ -1,6 +1,9 @@
-= Example Gin application for CloudBees platform feature management
 
-Use this guide to connect the `gin-fm-example` Go application to your CloudBees Feature Management environment. Once connected, you can test and visualize feature flag changes at http://localhost:8080/demo.
+= Gin application example
+
+This example is for use with CloudBees platform, feature management.
+
+Use this guide to connect the `gin-fm-example` Go application to your CloudBees platform feature management environment. Once connected, you can apply changes to feature flags, and observe the flag changes in your browser, http://localhost:8080/demo.
 
 == Prerequisites
 
